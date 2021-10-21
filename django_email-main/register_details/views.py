@@ -31,14 +31,14 @@ def insertapp(request):
         Company = request.POST.get('Company')
         CompanyAddress = request.POST.get('CompanyAddress')
         Phoneno = request.POST.get('Phoneno')
+        
         data = {"uid":uuid , "Firstname":Firstname,
         "Lastname":Lastname,"Address":Address,
         "City":City, "State":State,"Zip":Zip,
         "Company":Company,"CompanyAddress":CompanyAddress,
         "Phoneno":Phoneno}
         dbuid = Validate_user_details(uuid)
-        print(data)
-        print(dbuid)
+
         if dbuid is not None and dbuid == uuid:
             updatedetails(data)
         else:

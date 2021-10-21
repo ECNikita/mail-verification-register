@@ -12,4 +12,4 @@ class Register_details(models.Model):
     Phone_no = models.IntegerField(blank=True, null=True)
 
     class Meta:
-        db_table="registration"
+        db_table=""
