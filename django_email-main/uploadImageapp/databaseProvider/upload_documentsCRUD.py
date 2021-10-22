@@ -35,11 +35,11 @@ def user_upload_doc():
     cursor = connection.cursor()
     upload_doc = [] 
     try:
-        cursor.execute('SELECT uid, "Pancard", "Aadhaarcard", "Companyid", "Photo", "Pancard_file", "Aadhaarcard_file", "Companyid_file", "Photo_file" FROM public."Upload_documents"')
+        cursor.execute('SELECT  uid,"Pancard", "Aadhaarcard", "Companyid", "Photo", "Pancard_file", "Aadhaarcard_file", "Companyid_file", "Photo_file" FROM public."Upload_documents"')
         
         result_set = cursor.fetchall()
         for row in result_set:
-            uploads =UploadModel(row[0],row[1],row[2],row[3],row[4],row[5],row[6],row[7])
+            uploads =UploadModel(row[0],row[1],row[2],row[3],row[4],row[5],row[6],row[7],row[8])
             upload_doc.append(uploads)
     finally:
         cursor.close()

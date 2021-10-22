@@ -4,12 +4,19 @@ from django.contrib.auth.models import User
 
 
 class Profile(models.Model):
-    user = models.OneToOneField(User , on_delete=models.CASCADE)
-    auth_token = models.CharField(max_length=100 )
-    is_verified = models.BooleanField(default=False)
-    created_at = models.DateTimeField(auto_now_add=True)
+    uid = models.BigIntegerField(max_length=100 )
+    Email = models.CharField(max_length=100 )
+    Password = models.CharField(max_length=100 )
+    IsActive = models.BooleanField(default=False)
+    otp = models.IntegerField(max_length=100)
 
-    def __str__(self):
-        return self.user.username
+
+#uid, "Email", "Password", "IsActive", otp
+    def __init__(self,uid,email,password,isactive,otp):
+        self.uid = uid
+        self.Email = email
+        self.Password = password
+        self.IsActive = isactive
+        self.otp = otp
 
 
