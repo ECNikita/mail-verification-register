@@ -18,7 +18,7 @@ from django.urls import path,include
 from accounts.views import *
 from register_details.views import *
 from uploadImageapp.views import *
- #
+
 urlpatterns = [
     path('' , include('accounts.urls')),
     path('admin/', admin.site.urls),

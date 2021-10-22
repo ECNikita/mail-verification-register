@@ -1,8 +1,8 @@
 from django.contrib import admin
 from django.urls import path,include
-from uploadImageapp.views import *
+from uploadImageapp import views
 
 urlpatterns = [
     
-    path('uploadimage' ,  uploadimage  , name = "uploadimage"),
+    path('uploadimage' ,  views.upload_doc_list),
 ]

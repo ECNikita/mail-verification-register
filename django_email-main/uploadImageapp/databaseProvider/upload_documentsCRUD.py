@@ -1,5 +1,8 @@
 from django.db import connection
 from uploadImageapp.views import *
+from uploadImageapp.models  import UploadModel
+
+
 
 def Insert_upload_doc(data):
     cursor = connection.cursor()
@@ -28,6 +31,20 @@ def Validate_user_detail(uuid):
         cursor.close()
     return None
 
+def user_upload_doc():
+    cursor = connection.cursor()
+    upload_doc = [] 
+    try:
+        cursor.execute('SELECT uid, "Pancard", "Aadhaarcard", "Companyid", "Photo", "Pancard_file", "Aadhaarcard_file", "Companyid_file", "Photo_file" FROM public."Upload_documents"')
+        
+        result_set = cursor.fetchall()
+        for row in result_set:
+            uploads =UploadModel(row[0],row[1],row[2],row[3],row[4],row[5],row[6],row[7])
+            upload_doc.append(uploads)
+    finally:
+        cursor.close()
+    return upload_doc
+
 def Update_upload_doc(data):
     cursor = connection.cursor()
     
@@ -44,3 +61,18 @@ def Update_upload_doc(data):
         cursor.close()
     return False
     
+
+def delete_details(uid):
+    cursor = connection.cursor()
+    
+    try:
+        
+        cursor.execute('DELETE FROM public."Upload_documents" WHERE uid = %s',[uid])
+        
+        connection.commit()
+        count = cursor.rowcount
+        if count > 0:
+            return True
+    finally:
+        cursor.close()
+    return False
