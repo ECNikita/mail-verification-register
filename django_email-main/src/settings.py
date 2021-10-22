@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'register_details',
     'rest_framework',
     'uploadImageapp',
+    'chart',
 ]
 
 MIDDLEWARE = [

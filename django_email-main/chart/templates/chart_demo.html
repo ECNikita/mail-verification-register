@@ -1,0 +1,49 @@
+<html class="no-js" lang="en-US">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge" />
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/modules/data.js"></script>
+    <script src="https://code.highcharts.com/modules/exporting.js"></script>
+    <script src="https://code.highcharts.com/modules/export-data.js"></script>
+    <script src="https://code.highcharts.com/modules/accessibility.js"></script>
+  </head>
+
+  <body>
+    <div id="container"></div>
+    <script>
+      Highcharts.getJSON(
+        "http://127.0.0.1:8000/chart/get_chart_data",
+        function (data) {
+          Highcharts.chart("container", {
+            chart: {
+              zoomType: "x",
+            },
+            title: {
+              text: "Onions count over time",
+            },
+            xAxis: {
+              type: "datetime",
+            },
+            yAxis: {
+              title: {
+                text: "Quantity",
+              },
+            },
+            legend: {
+              enabled: false,
+            },
+
+            series: [
+              {
+                type: "line",
+                name: "Onions",
+                data: data,
+              },
+            ],
+          });
+        }
+      );
+    </script>
+  </body>
+</html>
