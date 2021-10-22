@@ -7,6 +7,8 @@ from register_details.views import *
 urlpatterns = [
    
     path('user_list',views.user_list),
+    path('activate_user',views.activate_user),
+    #path('')
     # path('' ,  home  , name="home"),
     # path('register' , register_attempt , name="register_attempt"),
     # path('accounts/login/' , login_attempt , name="login_attempt"),

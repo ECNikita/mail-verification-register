@@ -101,8 +101,8 @@ def user_update(data):
     cursor = connection.cursor()
     
     try:
-        updatedata = [data["uid"],data["Email"],data["Password"]]
-        cursor.execute('UPDATE public."User" SET uid=%s, "Email"=%s, "Password"=%s WHERE uid =%s;',updatedata)
+        updatedata = [data["Email"],data["Password"],data["uid"]]
+        cursor.execute('UPDATE public."User" SET  "Email"=%s, "Password"=%s WHERE uid =%s;',updatedata)
 
         
         connection.commit()
@@ -113,12 +113,12 @@ def user_update(data):
         cursor.close()
     return False
 
-def user_insert(data):
+def user_insert(data,otp):
     cursor = connection.cursor()
     
     try:
-        update =[data["uid"],data["Email"],data["Password"]]
-        cursor.execute('INSERT INTO public."User"(uid, "Email", "Password") VALUES (%s, %s, %s);',update)
+        update =[data["Email"],data["Password"],"0",otp]
+        cursor.execute('INSERT INTO public."User"( "Email", "Password", "IsActive", otp) VALUES ( %s, %s,%s,%s);',update)
         
         connection.commit()
         count = cursor.rowcount
@@ -131,7 +131,7 @@ def user_insert(data):
 def Validate_user_detail(uuid):
     cursor = connection.cursor()
     try:
-        cursor.execute('SELECT uid FROM public."User"."uid" = %s  ',[uuid])
+        cursor.execute('SELECT uid FROM public."User" where uid=%s ',[uuid])
         
         result_set = cursor.fetchall()
         for row in result_set:

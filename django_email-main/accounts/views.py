@@ -34,21 +34,29 @@ def user_list(request):
 
 
     elif request.method == 'POST':
-        user_data = json.loads(request.body)
-        print(user_data)
-        valid_user = Validate_user_detail(user_data["uid"])
-        res = False
-        if valid_user is not None and int(valid_user)==int(user_data["uid"]):
-            res= user_update(user_data)
-        else:
-            res = user_insert(user_data)
-        
-        if res is True:
-            data= {"res":"True"}
-            return JsonResponse((data), safe=False)
-        else :
-            data= {"res":"False"}
-            return JsonResponse((data), status=status.HTTP_400_BAD_REQUEST)
+        try:
+            print("hello")
+            user_data = json.loads(request.body)
+            print(user_data)
+            valid_user = Validate_user_detail(user_data["uid"])
+            res = False
+            
+            if valid_user is not None and int(valid_user)==int(user_data["uid"]):
+                res= user_update(user_data)
+            else:
+                otp= random.randint(10000,99999)
+                res = user_insert(user_data,otp)
+                send_mail_after_registration(user_data["Email"],otp)
+
+            
+            if res is True:
+                data= {"res":"True"}
+                return JsonResponse((data), safe=False)
+            else :
+                data= {"res":"False"}
+                return JsonResponse((data), status=status.HTTP_400_BAD_REQUEST)
+        except json.decoder.JSONDecodeError:
+	        print("There was a problem accessing the equipment data.")
 
     elif request.method == 'DELETE':
         uid = request.query_params.get('uid', None)
@@ -63,6 +71,22 @@ def user_list(request):
             data= {"res":"False"}
             return JsonResponse((data), status=status.HTTP_400_BAD_REQUEST)
 
+@api_view(['POST'])
+def activate_user(request):
+    if request.method == 'POST':
+        user_data = json.loads(request.body)
+        print(user_data)
+        valid_user = Verify_user(user_data["Email"],user_data["otp"])
+        res = False
+        if valid_user is True:
+            res= Activate_user(user_data["Email"])
+        
+        if res is True:
+            data= {"res":"True"}
+            return JsonResponse((data), safe=False)
+        else :
+            data= {"res":"False"}
+            return JsonResponse((data), status=status.HTTP_400_BAD_REQUEST)
 
 
 # @login_required
