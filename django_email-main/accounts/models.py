@@ -4,11 +4,11 @@ from django.contrib.auth.models import User
 
 
 class Profile(models.Model):
-    uid = models.BigIntegerField(max_length=100 )
+    uid = models.BigIntegerField( )
     Email = models.CharField(max_length=100 )
     Password = models.CharField(max_length=100 )
     IsActive = models.BooleanField(default=False)
-    otp = models.IntegerField(max_length=100)
+    otp = models.IntegerField()
 
 
 #uid, "Email", "Password", "IsActive", otp

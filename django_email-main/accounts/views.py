@@ -11,10 +11,8 @@ from rest_framework import status
 from rest_framework.decorators import api_view
 from django.http import JsonResponse
 import json
-
 from django.conf import settings
 from django.core.mail import send_mail
-
 from django.contrib.auth.decorators import login_required
 # Create your views here.
 
@@ -37,8 +35,8 @@ def user_list(request):
 
     elif request.method == 'POST':
         user_data = json.loads(request.body)
-        print(register_data)
-        valid_user = Validate_user_details(user_data["uid"])
+        print(user_data)
+        valid_user = Validate_user_detail(user_data["uid"])
         res = False
         if valid_user is not None and int(valid_user)==int(user_data["uid"]):
             res= user_update(user_data)

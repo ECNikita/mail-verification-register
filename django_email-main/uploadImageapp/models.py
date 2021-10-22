@@ -1,7 +1,7 @@
 from django.db import models
 
 class UploadModel(models.Model):
-    uid = models.BigIntegerField(max_length=1000000)
+    uid = models.BigIntegerField()
     Pan_card = models.BinaryField()
     Aadhaar_card = models.BinaryField()
     Company_id = models.BinaryField()

@@ -127,3 +127,15 @@ def user_insert(data):
     finally:
         cursor.close()
     return False
+
+def Validate_user_detail(uuid):
+    cursor = connection.cursor()
+    try:
+        cursor.execute('SELECT uid FROM public."User"."uid" = %s  ',[uuid])
+        
+        result_set = cursor.fetchall()
+        for row in result_set:
+            return row[0]
+    finally:
+        cursor.close()
+    return None
