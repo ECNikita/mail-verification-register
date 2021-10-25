@@ -19,6 +19,8 @@ from accounts.views import *
 from register_details.views import *
 from uploadImageapp.views import *
 from samplechart.views import *
+from product_details.views import *
+from trade_details.views import *
 
 urlpatterns = [
     path('', include('accounts.urls')),
@@ -26,4 +28,6 @@ urlpatterns = [
     path('saveapp', include('register_details.urls')),
     path('', include('uploadImageapp.urls')),
     path('chart/', include('samplechart.urls')),
+    path('products/',include('product_details.urls')),
+    path('trade/',include('trade_details.urls')),
 ]

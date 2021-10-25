@@ -35,7 +35,7 @@ def user_list(request):
 
     elif request.method == 'POST':
         try:
-            print("hello")
+            
             user_data = json.loads(request.body)
             print(user_data)
             valid_user = Validate_user_detail(user_data["uid"])

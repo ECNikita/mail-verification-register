@@ -42,6 +42,8 @@ INSTALLED_APPS = [
     'rest_framework',
     'uploadImageapp',
     'samplechart',
+    'product_details',
+    'trade_details',
 ]
 
 MIDDLEWARE = [
