@@ -25,4 +25,3 @@ def view_chart(request):
     return render(request, 'chart_demo.html')
 from django.shortcuts import render
 
-# Create your views here.

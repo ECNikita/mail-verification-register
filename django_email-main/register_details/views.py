@@ -57,12 +57,3 @@ def register_list(request):
         else :
             data= {"res":"False"}
             return JsonResponse((data), status=status.HTTP_400_BAD_REQUEST)
-
-        
-    
-
-
-
-
-
-

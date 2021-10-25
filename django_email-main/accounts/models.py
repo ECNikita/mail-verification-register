@@ -11,7 +11,7 @@ class Profile(models.Model):
     otp = models.IntegerField()
 
 
-#uid, "Email", "Password", "IsActive", otp
+
     def __init__(self,uid,email,password,isactive,otp):
         self.uid = uid
         self.Email = email

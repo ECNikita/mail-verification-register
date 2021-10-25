@@ -41,7 +41,7 @@ INSTALLED_APPS = [
     'register_details',
     'rest_framework',
     'uploadImageapp',
-    'chart',
+    'samplechart',
 ]
 
 MIDDLEWARE = [
@@ -140,6 +140,5 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_USE_TLS = True
 EMAIL_PORT = 587
-EMAIL_HOST_USER = 'santhegreat@gmail.com' #enter ur email
-EMAIL_HOST_PASSWORD = 'Sangati@123'   #enter the password
-
+EMAIL_HOST_USER = 'santhegreat@gmail.com'  # enter ur email
+EMAIL_HOST_PASSWORD = 'Sangati@123'  # enter the password
