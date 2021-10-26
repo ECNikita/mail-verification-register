@@ -9,9 +9,13 @@ from uploadImageapp.databaseProvider.upload_documentsCRUD import *
 from django.http import JsonResponse
 import json
 from rest_framework.parsers import JSONParser 
+from rest_framework.parsers import MultiPartParser, FormParser
+
 
 @api_view(['GET', 'POST', 'DELETE'])
+
 def upload_doc_list(request):
+    #parser_classes = (MultiPartParser, FormParser)
     if request.method == 'GET':
         upload_doc = user_upload_doc()
         
