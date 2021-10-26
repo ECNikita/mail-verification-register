@@ -29,8 +29,13 @@ def trade_list(request):
 
     elif request.method == 'POST':
         trade_data = json.loads(request.body)
-
-        res = insertdetails(trade_data)
+         
+        valid_user = Validate_user_details(trade_data["Trade_id"])
+        res = False
+        if valid_user is not None and int(valid_user)==int(trade_data["Trade_id"]):
+            res= updatedetails(trade_data)
+        else:
+            res = insertdetails(trade_data)
 
         if res is True:
             data = {"res": "True"}

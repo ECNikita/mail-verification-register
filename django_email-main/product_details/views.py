@@ -20,15 +20,15 @@ def product_list(request):
     elif request.method == 'POST':
         product_data = json.loads(request.body)
         valid_id =None
-        print("start")
+    
         if "Product_id" in product_data:
             valid_id = Validate_product_details(product_data["Product_id"])
         res = False
-        print(valid_id)
+        
         if valid_id is not None and int(valid_id)==int(product_data["Product_id"]):
             res= updatedetails(product_data)
         else:
-            print("insert")
+        
             res = insertdetails(product_data)
         
         if res is True:

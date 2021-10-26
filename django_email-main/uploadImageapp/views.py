@@ -28,7 +28,7 @@ def upload_doc_list(request):
 
     elif request.method == 'POST':
         upload_data = json.loads(request.body)
-        print(register_data)
+        
         valid_user = Validate_user_detail(upload_data["uid"])
         res = False
         if valid_user is not None and int(valid_user)==int(upload_data["uid"]):
@@ -55,11 +55,3 @@ def upload_doc_list(request):
         else :
             data= {"res":"False"}
             return JsonResponse((data), status=status.HTTP_400_BAD_REQUEST)
-
-
-
-
-
-
-
-

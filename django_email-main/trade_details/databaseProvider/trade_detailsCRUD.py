@@ -44,6 +44,23 @@ def Validate_user_details(uuid):
         cursor.close()
     return None
 
+def updatedetails(data):
+    cursor = connection.cursor()
+    
+    try:
+        updatedata = [data["Product_id"],data["uid"],data["Date"],data["Quantity"],data["Price"],data["Trade_id"]]
+        cursor.execute('UPDATE public."Trade_details" SET  "Product_id"=%s, uid=%s, "Date"=%s, "Quantity"=%s, "Price"=%s WHERE "Trade_id"=%s',updatedata)
+
+        
+        connection.commit()
+        count = cursor.rowcount
+        if count > 0:
+            return True
+    finally:
+        cursor.close()
+    return False
+
+
 def deletedetails(uid):
     cursor = connection.cursor()
     
