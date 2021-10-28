@@ -1,5 +1,5 @@
 from django.db import connection
-from BarvaAPI.views.registerViews import *
+from BarvaAPI.view.registerViews import *
 from BarvaAPI.Models.registerModels import Register_details
 
 
@@ -7,7 +7,7 @@ def get_all_register_details():
     cursor = connection.cursor()
     register_List=[]
     try:
-        cursor.execute('SELECT "Register_id", uid, "Firstname", "Lastname", "Address", "City", "State", "Zip", "Company", "CompanyAddress", "Phoneno" FROM public."Register_details" ')
+        cursor.execute('SELECT "Register_id", "UserId", "Firstname", "Lastname", "Address", "City", "State", "Zip", "Company", "CompanyAddress", "Phoneno" FROM public."Register_info" ')
         
         result_set = cursor.fetchall()
         for row in result_set:
@@ -18,12 +18,12 @@ def get_all_register_details():
         cursor.close()
     return register_List
 
-def updatedetails(data):
+def updatedetails(data,user_id):
     cursor = connection.cursor()
     
     try:
-        updatedata = [data["Firstname"],data["Lastname"],data["Address"],data["City"],data["State"],data["Zip"],data["Company"],data["CompanyAddress"],data["Phone_no"],data["uid"]]
-        cursor.execute('UPDATE public."Register_details" SET "Firstname"=%s, "Lastname"=%s, "Address"=%s, "City"=%s, "State"=%s, "Zip"=%s, "Company"=%s, "CompanyAddress"=%s, "Phoneno"=%s WHERE public."Register_details"."uid" =%s;',updatedata)
+        updatedata = [data["Firstname"],data["Lastname"],data["Address"],data["City"],data["State"],data["Zip"],data["Company"],data["CompanyAddress"],data["Phone_no"],user_id]
+        cursor.execute('UPDATE public."Register_info" SET "Firstname"=%s, "Lastname"=%s, "Address"=%s, "City"=%s, "State"=%s, "Zip"=%s, "Company"=%s, "CompanyAddress"=%s, "Phoneno"=%s WHERE "UserId" =%s;',updatedata)
 
         
         connection.commit()
@@ -34,12 +34,12 @@ def updatedetails(data):
         cursor.close()
     return False
 
-def insertdetails(data):
+def insertdetails(data,user_id):
     cursor = connection.cursor()
     
     try:
-        updatedata = [data["uid"],data["Firstname"],data["Lastname"],data["Address"],data["City"],data["State"],data["Zip"],data["Company"],data["CompanyAddress"],data["Phone_no"]]
-        cursor.execute('INSERT INTO public."Register_details"("uid","Firstname", "Lastname", "Address", "City", "State", "Zip", "Company", "CompanyAddress", "Phoneno") VALUES ( %s,%s,%s, %s, %s, %s, %s, %s, %s, %s)',updatedata)
+        updatedata = [user_id,data["Firstname"],data["Lastname"],data["Address"],data["City"],data["State"],data["Zip"],data["Company"],data["CompanyAddress"],data["Phone_no"]]
+        cursor.execute('INSERT INTO public."Register_info" ("UserId","Firstname", "Lastname", "Address", "City", "State", "Zip", "Company", "CompanyAddress", "Phoneno") VALUES ( %s,%s,%s, %s, %s, %s, %s, %s, %s, %s)',updatedata)
         
         connection.commit()
         count = cursor.rowcount
@@ -51,10 +51,13 @@ def insertdetails(data):
 
 def Validate_user_details(uuid):
     cursor = connection.cursor()
+    print("validtae user")
+    print(uuid)
     try:
-        cursor.execute('SELECT "uid" FROM public."Register_details" WHERE public."Register_details"."uid" = %s  ',[uuid])
-        
+        cursor.execute('SELECT  "UserId" FROM public."Register_info" WHERE "UserId"=%s',[uuid])
+        print("efter sql")
         result_set = cursor.fetchall()
+        
         for row in result_set:
             return row[0]
     finally:
@@ -66,7 +69,7 @@ def deletedetails(uid):
     
     try:
         
-        cursor.execute('DELETE FROM public."Register_details"WHERE uid = %s',[uid])
+        cursor.execute('DELETE FROM public."Register_info"WHERE "UserId" = %s',[uid])
         
         connection.commit()
         count = cursor.rowcount

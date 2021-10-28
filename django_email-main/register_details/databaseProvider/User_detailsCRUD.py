@@ -22,8 +22,8 @@ def updatedetails(data):
     cursor = connection.cursor()
     
     try:
-        updatedata = [data["Firstname"],data["Lastname"],data["Address"],data["City"],data["State"],data["Zip"],data["Company"],data["CompanyAddress"],data["Phone_no"],data["uid"]]
-        cursor.execute('UPDATE public."Register_details" SET "Firstname"=%s, "Lastname"=%s, "Address"=%s, "City"=%s, "State"=%s, "Zip"=%s, "Company"=%s, "CompanyAddress"=%s, "Phoneno"=%s WHERE public."Register_details"."uid" =%s;',updatedata)
+        updatedata = [data["Firstname"],data["Lastname"],data["Address"],data["City"],data["State"],data["Zip"],data["Company"],data["CompanyAddress"],data["Phone_no"],data["UserId"]]
+        cursor.execute('UPDATE public."Register_details" SET "Firstname"=%s, "Lastname"=%s, "Address"=%s, "City"=%s, "State"=%s, "Zip"=%s, "Company"=%s, "CompanyAddress"=%s, "Phoneno"=%s WHERE public."Register_details"."UserId" =%s;',updatedata)
 
         
         connection.commit()
@@ -38,8 +38,8 @@ def insertdetails(data):
     cursor = connection.cursor()
     
     try:
-        updatedata = [data["uid"],data["Firstname"],data["Lastname"],data["Address"],data["City"],data["State"],data["Zip"],data["Company"],data["CompanyAddress"],data["Phone_no"]]
-        cursor.execute('INSERT INTO public."Register_details"("uid","Firstname", "Lastname", "Address", "City", "State", "Zip", "Company", "CompanyAddress", "Phoneno") VALUES ( %s,%s,%s, %s, %s, %s, %s, %s, %s, %s)',updatedata)
+        updatedata = [data["UserId"],data["Firstname"],data["Lastname"],data["Address"],data["City"],data["State"],data["Zip"],data["Company"],data["CompanyAddress"],data["Phone_no"]]
+        cursor.execute('INSERT INTO public."Register_details"("UserId","Firstname", "Lastname", "Address", "City", "State", "Zip", "Company", "CompanyAddress", "Phoneno") VALUES ( %s,%s,%s, %s, %s, %s, %s, %s, %s, %s)',updatedata)
         
         connection.commit()
         count = cursor.rowcount
@@ -52,7 +52,7 @@ def insertdetails(data):
 def Validate_user_details(uuid):
     cursor = connection.cursor()
     try:
-        cursor.execute('SELECT "uid" FROM public."Register_details" WHERE public."Register_details"."uid" = %s  ',[uuid])
+        cursor.execute('SELECT "UserId" FROM public."Register_details" WHERE public."Register_details"."UserId" = %s  ',[uuid])
         
         result_set = cursor.fetchall()
         for row in result_set:
@@ -66,7 +66,7 @@ def deletedetails(uid):
     
     try:
         
-        cursor.execute('DELETE FROM public."Register_details"WHERE uid = %s',[uid])
+        cursor.execute('DELETE FROM public."Register_details"WHERE "UserId"=%s',[uid])
         
         connection.commit()
         count = cursor.rowcount

@@ -101,7 +101,7 @@ class sign_in(generics.CreateAPIView):
                     }
                 )
 
-            return JsonResponse((response), safe=False)
+            return JsonResponse(response, safe=False)
 
 
 class get_user(generics.CreateAPIView):

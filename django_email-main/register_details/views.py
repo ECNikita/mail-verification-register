@@ -31,9 +31,9 @@ def register_list(request):
     elif request.method == 'POST':
         register_data = json.loads(request.body)
         print(register_data)
-        valid_user = Validate_user_details(register_data["uid"])
+        valid_user = Validate_user_details(register_data["UserId"])
         res = False
-        if valid_user is not None and int(valid_user)==int(register_data["uid"]):
+        if valid_user is not None and int(valid_user)==int(register_data["UserId"]):
             res= updatedetails(register_data)
         else:
             res = insertdetails(register_data)
