@@ -1,0 +1,191 @@
+openapi: 3.0.2
+info:
+  title: ''
+  version: ''
+paths:
+  /users/signup:
+    post:
+      operationId: createCognitoUserSerialize
+      description: ''
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CognitoUserSerialize'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/CognitoUserSerialize'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/CognitoUserSerialize'
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CognitoUserSerialize'
+          description: ''
+      tags:
+      - users
+  /users/confirm_signup:
+    post:
+      operationId: createconfirm_sign_up
+      description: ''
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema: {}
+          application/x-www-form-urlencoded:
+            schema: {}
+          multipart/form-data:
+            schema: {}
+      responses:
+        '201':
+          content:
+            application/json:
+              schema: {}
+          description: ''
+      tags:
+      - users
+  /users/resend_confirm:
+    post:
+      operationId: createresend_confirm_code
+      description: ''
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema: {}
+          application/x-www-form-urlencoded:
+            schema: {}
+          multipart/form-data:
+            schema: {}
+      responses:
+        '201':
+          content:
+            application/json:
+              schema: {}
+          description: ''
+      tags:
+      - users
+  /users/signin:
+    post:
+      operationId: createsign_in
+      description: ''
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema: {}
+          application/x-www-form-urlencoded:
+            schema: {}
+          multipart/form-data:
+            schema: {}
+      responses:
+        '201':
+          content:
+            application/json:
+              schema: {}
+          description: ''
+      tags:
+      - users
+  /users/get_user:
+    post:
+      operationId: createget_user
+      description: ''
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema: {}
+          application/x-www-form-urlencoded:
+            schema: {}
+          multipart/form-data:
+            schema: {}
+      responses:
+        '201':
+          content:
+            application/json:
+              schema: {}
+          description: ''
+      tags:
+      - users
+  /users/confirm_forgot_password:
+    post:
+      operationId: createconfirm_forgot_password
+      description: ''
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema: {}
+          application/x-www-form-urlencoded:
+            schema: {}
+          multipart/form-data:
+            schema: {}
+      responses:
+        '201':
+          content:
+            application/json:
+              schema: {}
+          description: ''
+      tags:
+      - users
+  /users/forgot_password:
+    post:
+      operationId: createforgot_password
+      description: ''
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema: {}
+          application/x-www-form-urlencoded:
+            schema: {}
+          multipart/form-data:
+            schema: {}
+      responses:
+        '201':
+          content:
+            application/json:
+              schema: {}
+          description: ''
+      tags:
+      - users
+  /users/change_password:
+    post:
+      operationId: createchange_password
+      description: ''
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema: {}
+          application/x-www-form-urlencoded:
+            schema: {}
+          multipart/form-data:
+            schema: {}
+      responses:
+        '201':
+          content:
+            application/json:
+              schema: {}
+          description: ''
+      tags:
+      - users
+components:
+  schemas:
+    CognitoUserSerialize:
+      type: object
+      properties:
+        Email:
+          type: string
+          maxLength: 100
+        Password:
+          type: string
+          maxLength: 100
+      required:
+      - Email
+      - Password

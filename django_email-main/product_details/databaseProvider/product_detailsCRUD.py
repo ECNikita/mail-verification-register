@@ -7,8 +7,7 @@ def get_all_product_details():
     cursor = connection.cursor()
     product_List = []
     try:
-        cursor.execute(
-            'SELECT "Product_id", "Product_name", "Product_size", "Product_price" FROM public."Product_details"')
+        cursor.execute('SELECT "Product_id", "Product_name", "Product_size", "Product_price" FROM public."Product_details"')
 
         result_set = cursor.fetchall()
         for row in result_set:

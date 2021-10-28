@@ -4,7 +4,7 @@ class Trade_detailsModel(models.Model):
     Trade_id  =  models.BigIntegerField()
     Product_id = models.BigIntegerField()
     uid = models.BigIntegerField()
-    Date = models.DateField()
+    Date = models.DateTimeField()
     Quantity = models.BigIntegerField()
     Price = models.BigIntegerField()
     
