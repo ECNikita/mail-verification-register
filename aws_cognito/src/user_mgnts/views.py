@@ -100,7 +100,8 @@ class sign_in(generics.CreateAPIView):
                         'PASSWORD': SigninSerializer.data['Password']
                     }
                 )
-
+                token = response['AuthenticationResult']['AccessToken']
+                
             return JsonResponse(response, safe=False)
 
 

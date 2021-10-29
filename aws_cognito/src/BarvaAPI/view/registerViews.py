@@ -36,17 +36,10 @@ class RegisterUserByID(generics.CreateAPIView):
 
     def post(self, request):
         user_id = request.user.UserId
-       # print('useris', user_id)
         user_data = JSONParser().parse(request)
-
         RegistrateSerializer = RegistrateSerialize(data=user_data)
        
-        #print(user_id)
-        # print(RegistrateSerializer.is_valid())
-        #print(RegistrateSerializer.data)
         if RegistrateSerializer.is_valid():
-            #user_id =RegistrateSerializer.data['UserId']
-            #print(user_id)
             valid_user = Validate_user_details(user_id)
             res = False
             if valid_user is not None and valid_user == user_id:

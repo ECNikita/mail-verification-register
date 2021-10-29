@@ -22,5 +22,8 @@ urlpatterns = [
     ), name='swagger-ui'),
     path('admin/', admin.site.urls),
     path('users/', include('user_mgnts.urls')),
-    path('',include('BarvaAPI.urls'))
+    path('',include('BarvaAPI.urls')),
+    path('chart/', TemplateView.as_view(
+        template_name='examplechart.html'
+    ))
 ]

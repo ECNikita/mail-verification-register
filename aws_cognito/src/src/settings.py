@@ -39,6 +39,7 @@ REST_FRAMEWORK = {
         'user_mgnts.TokenAuthentication.TokenAuthentication',
 
     ),
+    'DATETIME_FORMAT': "%d/%m/%Y %H:%M:%S"
     # 'DEFAULT_SCHEMA_CLASS': 'rest_framework.schemas.coreapi.AutoSchema'
 }
 # SWAGGER_SETTINGS = {

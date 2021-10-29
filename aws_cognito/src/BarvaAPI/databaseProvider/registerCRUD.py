@@ -7,7 +7,7 @@ def get_all_register_details():
     cursor = connection.cursor()
     register_List=[]
     try:
-        cursor.execute('SELECT "Register_id", "UserId", "Firstname", "Lastname", "Address", "City", "State", "Zip", "Company", "CompanyAddress", "Phoneno" FROM public."Register_info" ')
+        cursor.execute('SELECT "Register_id", "UserId", "Firstname", "Lastname", "Address", "City", "State", "Zip", "Firm", "FirmAddress", "Phoneno" FROM public."Register_info" ')
         
         result_set = cursor.fetchall()
         for row in result_set:
@@ -22,8 +22,8 @@ def updatedetails(data,user_id):
     cursor = connection.cursor()
     
     try:
-        updatedata = [data["Firstname"],data["Lastname"],data["Address"],data["City"],data["State"],data["Zip"],data["Company"],data["CompanyAddress"],data["Phone_no"],user_id]
-        cursor.execute('UPDATE public."Register_info" SET "Firstname"=%s, "Lastname"=%s, "Address"=%s, "City"=%s, "State"=%s, "Zip"=%s, "Company"=%s, "CompanyAddress"=%s, "Phoneno"=%s WHERE "UserId" =%s;',updatedata)
+        updatedata = [data["Firstname"],data["Lastname"],data["Address"],data["City"],data["State"],data["Zip"],data["Firm"],data["FirmAddress"],data["Phone_no"],user_id]
+        cursor.execute('UPDATE public."Register_info" SET "Firstname"=%s, "Lastname"=%s, "Address"=%s, "City"=%s, "State"=%s, "Zip"=%s, "Firm"=%s, "FirmAddress"=%s, "Phoneno"=%s WHERE "UserId" =%s;',updatedata)
 
         
         connection.commit()
@@ -38,8 +38,8 @@ def insertdetails(data,user_id):
     cursor = connection.cursor()
     
     try:
-        updatedata = [user_id,data["Firstname"],data["Lastname"],data["Address"],data["City"],data["State"],data["Zip"],data["Company"],data["CompanyAddress"],data["Phone_no"]]
-        cursor.execute('INSERT INTO public."Register_info" ("UserId","Firstname", "Lastname", "Address", "City", "State", "Zip", "Company", "CompanyAddress", "Phoneno") VALUES ( %s,%s,%s, %s, %s, %s, %s, %s, %s, %s)',updatedata)
+        updatedata = [user_id,data["Firstname"],data["Lastname"],data["Address"],data["City"],data["State"],data["Zip"],data["Firm"],data["FirmAddress"],data["Phone_no"]]
+        cursor.execute('INSERT INTO public."Register_info" ("UserId","Firstname", "Lastname", "Address", "City", "State", "Zip", "Firm", "FirmAddress", "Phoneno") VALUES ( %s,%s,%s, %s, %s, %s, %s, %s, %s, %s)',updatedata)
         
         connection.commit()
         count = cursor.rowcount
@@ -51,11 +51,11 @@ def insertdetails(data,user_id):
 
 def Validate_user_details(uuid):
     cursor = connection.cursor()
-    print("validtae user")
+    
     print(uuid)
     try:
         cursor.execute('SELECT  "UserId" FROM public."Register_info" WHERE "UserId"=%s',[uuid])
-        print("efter sql")
+        
         result_set = cursor.fetchall()
         
         for row in result_set:
