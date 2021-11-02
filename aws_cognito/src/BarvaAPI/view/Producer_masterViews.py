@@ -34,10 +34,11 @@ class ProducerInsert(generics.CreateAPIView):
     def post(self, request):
         producer_data = JSONParser().parse(request)
         Producer_masterSerializer = Producer_masterSerialize(data=producer_data)
+        
         res = False
         
-        if Producer_masterSerializer.is_valid():
-            res = insertdetails(Producer_masterSerializer.data)
+        Producer_masterSerializer.is_valid()
+        res = insertdetails(Producer_masterSerializer.data)
             
         if res is True:
             data = {"res":"True"}

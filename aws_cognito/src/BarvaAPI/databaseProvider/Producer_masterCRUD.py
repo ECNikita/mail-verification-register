@@ -40,10 +40,11 @@ def insertdetails(data):
     cursor = connection.cursor()
     
     try:
-        updatedata = [data["Producer_name"], data["Producer_address"],data["Producer_mobileno"],data["Producer_adhaarno"], data["Producer_email"],data["Producer_pancard"],data["Producer_firmregistration"],data["Producer_gstno"]]
-        cursor.execute('INSERT INTO public."Producer_master"( "Producer_name", "Producer_address", "Producer_mobileno", "Producer_adhaarno", "Producer_email", "Producer_pancard", "Producer_firmregistration", "Producer_gstno") VALUES (%s, %s, %s,%s,%s,%s,%s,%s)', updatedata)
-
+        updatedata = [data["Producer_name"], data["Producer_address"],data["Producer_mobileno"],data["Producer_adhaarno"], data["Producer_email"],data["Producer_pancard"],data["Producer_gstno"],data["Producer_firmregistration"]]
+        cursor.execute('INSERT INTO public."Producer_master"( "Producer_name", "Producer_address", "Producer_mobileno", "Producer_adhaarno", "Producer_email", "Producer_pancard", "Producer_gstno", "Producer_firmregistration") VALUES (%s, %s, %s,%s,%s,%s,%s,%s)', updatedata)
+        
         connection.commit()
+        
         count = cursor.rowcount
         
         if count > 0:
