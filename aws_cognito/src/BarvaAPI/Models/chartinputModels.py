@@ -12,11 +12,18 @@ class ChartModel(models.Model):
         self.dateto = dto
 
 class ChartResponseModel(models.Model):
-    price = models.IntegerField()
     quantity =models.IntegerField()
     datefrom = models.DateTimeField()
 
     def __init__(self,pr,qn,df):
-        self.price = pr
+        
         self.quantity =qn
+        self.datefrom =df
+
+class ChartResponseModel1(models.Model):
+    price = models.IntegerField()
+    datefrom = models.DateTimeField()
+
+    def __init__(self,pr,qn,df):
+        self.price = pr
         self.datefrom =df

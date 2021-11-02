@@ -19,12 +19,11 @@ class TraderroleGET(generics.CreateAPIView):
     serializer_class = TraderroleSerialize
 
     def get(self, request):
-       
         traderrole_data = get_all_traderrole_details()
-        
         TraderroleSerializer = TraderroleSerialize(data=traderrole_data, many=True)
+        print(TraderroleSerializer)
         TraderroleSerializer.is_valid()
-        return JsonResponse(TraderroleSerializer.data, safe=False, many=True)
+        return JsonResponse(TraderroleSerializer.data, safe=False)
 
 
 class TraderroleInsert(generics.CreateAPIView):

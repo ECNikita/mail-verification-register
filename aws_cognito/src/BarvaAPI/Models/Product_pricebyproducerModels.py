@@ -2,6 +2,7 @@ from django.db import models
 
 
 class Product_pricebyproducerModel(models.Model):
+    Serial_id = models.BigIntegerField(blank=True, null=True,primary_key= True)
     Product_id = models.BigIntegerField(blank=True, null=True)
     Producer_id = models.BigIntegerField(blank=True, null=True)
     price = models.IntegerField(blank=True, null=True)
@@ -9,8 +10,9 @@ class Product_pricebyproducerModel(models.Model):
     dateto = models.DateTimeField()
     Lotunit_id = models.BigIntegerField(blank=True, null=True)
     quantity = models.IntegerField(blank=True, null=True)
+    
 
-    def __init__(self, product_id, producer_id, price, dfrom, dto, Lot_id, quan):
+    def __init__(self, product_id, producer_id, price, dfrom, dto, Lot_id, quan,serial_id):
         self.Product_id = product_id
         self.Producer_id = producer_id
         self.price = price
@@ -18,3 +20,4 @@ class Product_pricebyproducerModel(models.Model):
         self.dateto = dto
         self.Lotunit_id = Lot_id
         self.quantity = quan
+        self.Serial_id = serial_id

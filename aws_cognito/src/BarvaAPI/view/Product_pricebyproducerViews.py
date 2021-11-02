@@ -58,14 +58,15 @@ class Product_pricebyproducerUpdate(generics.CreateAPIView):
     def put(self, request):
         Prod_data = JSONParser().parse(request)
         Product_pricebyproducerSerializer = Product_pricebyproducerSerialize(data=Prod_data)
-       
-        if Product_pricebyproducerSerializer.is_valid() and "Serial_id" in Product_pricebyproducerSerializer.data:
-            valid_id = Validate_product_details(Product_pricebyproducerSerializer.data["Serial_id"])
         res = False
         
-        if valid_id is not None and int(valid_id)==int(Product_pricebyproducerSerializer.data["Serial_id"]):
-            res= updatedetails(Product_pricebyproducerSerializer.data)
-        
+
+        if Product_pricebyproducerSerializer.is_valid() and "Serial_id" in Product_pricebyproducerSerializer.data:
+            valid_id = Validate_product_details(Product_pricebyproducerSerializer.data["Serial_id"])
+            
+        if valid_id is not None and int(valid_id) == int(Product_pricebyproducerSerializer.data["Serial_id"]):
+            res = updatedetails(Product_pricebyproducerSerializer.data)
+            
         if res is True:
             data= {"res":"True"}
             return JsonResponse((data), safe=False)

@@ -63,8 +63,7 @@ class ProductUpdate(generics.CreateAPIView):
         Product_masterSerializer = Product_masterSerialize(data=product_data)
 
         if Product_masterSerializer.is_valid() and "Product_id" in Product_masterSerializer.data:
-            valid_id = Validate_product_details(
-                Product_masterSerializer.data["Product_id"])
+            valid_id = Validate_product_details(Product_masterSerializer.data["Product_id"])
         res = False
 
         if valid_id is not None and int(valid_id) == int(Product_masterSerializer.data["Product_id"]):
