@@ -14,6 +14,19 @@ from django.http import JsonResponse
 import json
 from rest_framework import status, permissions
 
+class Product_pricebyproducerGET(generics.CreateAPIView):
+    # permission_classes = (permissions.IsAuthenticated,)
+    # renderer_classes = [
+    #     renderers.OpenAPIRenderer,
+    #     renderers.SwaggerUIRenderer
+    # ]
+    serializer_class = Product_pricebyproducerSerialize
+    def get(self, request):
+        prod_data = get_all_product_price_details()
+        Product_pricebyproducerSerializer = Product_pricebyproducerSerialize(data=prod_data, many=True)
+        Product_pricebyproducerSerializer.is_valid()
+        return JsonResponse(Product_pricebyproducerSerializer.data, safe=False)
+
 class Product_pricebyproducerInsert(generics.CreateAPIView):
     # permission_classes = (permissions.IsAuthenticated,)
     # renderer_classes = [
@@ -34,6 +47,51 @@ class Product_pricebyproducerInsert(generics.CreateAPIView):
         else:
             data = {"res":"False"}
             return JsonResponse((data), status=status.HTTP_400_BAD_REQUEST)
+
+class Product_pricebyproducerUpdate(generics.CreateAPIView):
+    # permission_classes = (permissions.IsAuthenticated,)
+    # renderer_classes = [
+    #     renderers.OpenAPIRenderer,
+    #     renderers.SwaggerUIRenderer
+    # ]
+    serializer_class = Product_pricebyproducerSerialize
+    def put(self, request):
+        Prod_data = JSONParser().parse(request)
+        Product_pricebyproducerSerializer = Product_pricebyproducerSerialize(data=Prod_data)
+       
+        if Product_pricebyproducerSerializer.is_valid() and "Serial_id" in Product_pricebyproducerSerializer.data:
+            valid_id = Validate_product_details(Product_pricebyproducerSerializer.data["Serial_id"])
+        res = False
+        
+        if valid_id is not None and int(valid_id)==int(Product_pricebyproducerSerializer.data["Serial_id"]):
+            res= updatedetails(Product_pricebyproducerSerializer.data)
+        
+        if res is True:
+            data= {"res":"True"}
+            return JsonResponse((data), safe=False)
+        else :
+            data= {"res":"False"}
+            return JsonResponse((data), status=status.HTTP_400_BAD_REQUEST)
+
+
+class Product_pricebyproducerDelete(generics.CreateAPIView):
+    serializer_class = Product_pricebyproducerSerialize
+    def delete(self, request):
+        #product_data = JSONParser().parse(request)
+        #Product_masterSerializer = Product_masterSerialize(data=product_data)
+        
+        uid = request.query_params.get('Serial_id', None)
+        
+        res=False
+        res = deletedetails(uid)
+
+        if res is True:
+            data= {"res":"True"}
+            return JsonResponse((data), safe=False)
+        else :
+            data= {"res":"False"}
+            return JsonResponse((data), status=status.HTTP_400_BAD_REQUEST)
+
 
 class GETchart(generics.CreateAPIView):
     serializer_class = ChartSerialize

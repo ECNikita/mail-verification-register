@@ -2,41 +2,41 @@ from rest_framework_swagger import renderers
 from rest_framework.parsers import JSONParser
 from rest_framework import generics
 from django.shortcuts import render, redirect
-from BarvaAPI.Models.Lotunit_masterModels import Lotunit_masterModel
+from BarvaAPI.Models.Trader_detailsModels import Trader_detailsModel
 from rest_framework.response import Response
-from BarvaAPI.serializer.Lotunit_masterSerialize import Lotunit_masterSerialize
+from BarvaAPI.serializer.Trader_detailsSerialize import Trader_detailsSerialize
 from rest_framework import status
-from BarvaAPI.databaseProvider.Lotunit_masterCRUD import *
+from BarvaAPI.databaseProvider.Trader_detailsCRUD import *
 from django.http import JsonResponse
 import json
 from rest_framework import status, permissions
 
-class LotGET(generics.CreateAPIView):
+class Trader_detailsGET(generics.CreateAPIView):
     # permission_classes = (permissions.IsAuthenticated,)
     # renderer_classes = [
     #     renderers.OpenAPIRenderer,
     #     renderers.SwaggerUIRenderer
     # ]
-    serializer_class = Lotunit_masterSerialize
+    serializer_class = Trader_detailsSerialize
     def get(self, request):
-        prod_data = get_all_Lot_details()
-        Lotunit_masterSerializer = Lotunit_masterSerialize(data=prod_data, many=True)
-        Lotunit_masterSerializer.is_valid()
-        return JsonResponse(Lotunit_masterSerializer.data, safe=False)
+        trader_data = get_all_trader_details()
+        Trader_detailsSerializer = Trader_detailsSerialize(data=trader_data, many=True)
+        Trader_detailsSerializer.is_valid()
+        return JsonResponse(Trader_detailsSerializer.data, safe=False)
 
-class LotInsert(generics.CreateAPIView):
+class Trader_detailsInsert(generics.CreateAPIView):
     # permission_classes = (permissions.IsAuthenticated,)
     # renderer_classes = [
     #     renderers.OpenAPIRenderer,
     #     renderers.SwaggerUIRenderer
     # ]
-    serializer_class = Lotunit_masterSerialize
+    serializer_class = Trader_detailsSerialize
     def post(self, request):
         Lot_data = JSONParser().parse(request)
-        Lotunit_masterSerializer = Lotunit_masterSerialize(data=Lot_data)
+        Trader_detailsSerializer = Trader_detailsSerialize(data=Lot_data)
         res = False
-        if Lotunit_masterSerializer.is_valid():
-            res = insertdetails(Lotunit_masterSerializer.data)
+        if Trader_detailsSerializer.is_valid():
+            res = insertdetails(Trader_detailsSerializer.data)
             
         if res is True:
             data = {"res":"True"}
@@ -45,23 +45,23 @@ class LotInsert(generics.CreateAPIView):
             data = {"res":"False"}
             return JsonResponse((data), status=status.HTTP_400_BAD_REQUEST)
 
-class LotUpdate(generics.CreateAPIView):
+class Trader_detailsUpdate(generics.CreateAPIView):
     # permission_classes = (permissions.IsAuthenticated,)
     # renderer_classes = [
     #     renderers.OpenAPIRenderer,
     #     renderers.SwaggerUIRenderer
     # ]
-    serializer_class = Lotunit_masterSerialize
+    serializer_class = Trader_detailsSerialize
     def put(self, request):
         lot_data = JSONParser().parse(request)
-        Lotunit_masterSerializer = Lotunit_masterSerialize(data=lot_data)
+        Trader_detailsSerializer = Trader_detailsSerialize(data=lot_data)
        
-        if Lotunit_masterSerializer.is_valid() and "Lotunit_id" in Lotunit_masterSerializer.data:
-            valid_id = Validate_product_details(Lotunit_masterSerializer.data["Lotunit_id"])
+        if Trader_detailsSerializer.is_valid() and "Trader_id" in Trader_detailsSerializer.data:
+            valid_id = Validate_product_details(Trader_detailsSerializer.data["Trader_id"])
         res = False
         
-        if valid_id is not None and int(valid_id)==int(Lotunit_masterSerializer.data["Lotunit_id"]):
-            res= updatedetails(Lotunit_masterSerializer.data)
+        if valid_id is not None and int(valid_id)==int(Trader_detailsSerializer.data["Trader_id"]):
+            res= updatedetails(Trader_detailsSerializer.data)
         
         if res is True:
             data= {"res":"True"}
@@ -71,13 +71,13 @@ class LotUpdate(generics.CreateAPIView):
             return JsonResponse((data), status=status.HTTP_400_BAD_REQUEST)
 
 
-class LotDelete(generics.CreateAPIView):
-    serializer_class = Lotunit_masterSerialize
+class Trader_detailsDelete(generics.CreateAPIView):
+    serializer_class = Trader_detailsSerialize
     def delete(self, request):
         #product_data = JSONParser().parse(request)
         #Product_masterSerializer = Product_masterSerialize(data=product_data)
         
-        uid = request.query_params.get('Lotunit_id', None)
+        uid = request.query_params.get('Trader_id', None)
         
         res=False
         res = deletedetails(uid)

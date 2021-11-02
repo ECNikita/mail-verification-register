@@ -11,7 +11,8 @@ def get_all_product_details():
 
         result_set = cursor.fetchall()
         for row in result_set:
-            products = Product_masterModel(row[0], row[1], row[2], row[3])
+            products = Product_masterModel(row[0], row[1], row[2], row[3],row[4])
+            #print(products)
             product_List.append(products)
 
     finally:

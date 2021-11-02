@@ -2,45 +2,45 @@ from rest_framework_swagger import renderers
 from rest_framework.parsers import JSONParser
 from rest_framework import generics
 from django.shortcuts import render, redirect
-from BarvaAPI.Models.Product_masterModels import *
 from rest_framework.response import Response
-from BarvaAPI.serializer.Product_masterSerialize import Product_masterSerialize
+from BarvaAPI.serializer.TraderroleSerialize import TraderroleSerialize
 from rest_framework import status
-from BarvaAPI.databaseProvider.Product_masterCRUD import *
+from BarvaAPI.databaseProvider.TraderroleCRUD import *
 from django.http import JsonResponse
-import json
 from rest_framework import status, permissions
 
 
-class ProductGET(generics.CreateAPIView):
+class TraderroleGET(generics.CreateAPIView):
     # permission_classes = (permissions.IsAuthenticated,)
     # renderer_classes = [
     #     renderers.OpenAPIRenderer,
     #     renderers.SwaggerUIRenderer
     # ]
-    serializer_class = Product_masterSerialize
+    serializer_class = TraderroleSerialize
 
     def get(self, request):
-        prod_data = get_all_product_details()
-        Product_masterSerializer = Product_masterSerialize(data=prod_data, many=True)
-        Product_masterSerializer.is_valid()
-        return JsonResponse(Product_masterSerializer.data, safe=False)
+       
+        traderrole_data = get_all_traderrole_details()
+        
+        TraderroleSerializer = TraderroleSerialize(data=traderrole_data, many=True)
+        TraderroleSerializer.is_valid()
+        return JsonResponse(TraderroleSerializer.data, safe=False, many=True)
 
 
-class ProductInsert(generics.CreateAPIView):
+class TraderroleInsert(generics.CreateAPIView):
     # permission_classes = (permissions.IsAuthenticated,)
     # renderer_classes = [
     #     renderers.OpenAPIRenderer,
     #     renderers.SwaggerUIRenderer
     # ]
-    serializer_class = Product_masterSerialize
+    serializer_class = TraderroleSerialize
 
     def post(self, request):
-        product_data = JSONParser().parse(request)
-        Product_masterSerializer = Product_masterSerialize(data=product_data)
-
-        if Product_masterSerializer.is_valid():
-            res = insertdetails(Product_masterSerializer.data)
+        trader_data = JSONParser().parse(request)
+        TraderroleSerializer = TraderroleSerialize(data=trader_data)
+        res = False
+        if TraderroleSerializer.is_valid():
+            res = insertdetails(TraderroleSerializer.data)
 
         if res is True:
             data = {"res": "True"}
@@ -50,25 +50,25 @@ class ProductInsert(generics.CreateAPIView):
             return JsonResponse((data), status=status.HTTP_400_BAD_REQUEST)
 
 
-class ProductUpdate(generics.CreateAPIView):
+class TraderroleUpdate(generics.CreateAPIView):
     # permission_classes = (permissions.IsAuthenticated,)
     # renderer_classes = [
     #     renderers.OpenAPIRenderer,
     #     renderers.SwaggerUIRenderer
     # ]
-    serializer_class = Product_masterSerialize
+    serializer_class = TraderroleSerialize
 
     def put(self, request):
-        product_data = JSONParser().parse(request)
-        Product_masterSerializer = Product_masterSerialize(data=product_data)
+        trader_data = JSONParser().parse(request)
+        TraderroleSerializer = TraderroleSerialize(data=trader_data)
 
-        if Product_masterSerializer.is_valid() and "Product_id" in Product_masterSerializer.data:
+        if TraderroleSerializer.is_valid() and "Traderrole_id" in TraderroleSerializer.data:
             valid_id = Validate_product_details(
-                Product_masterSerializer.data["Product_id"])
+                TraderroleSerializer.data["Traderrole_id"])
         res = False
 
-        if valid_id is not None and int(valid_id) == int(Product_masterSerializer.data["Product_id"]):
-            res = updatedetails(Product_masterSerializer.data)
+        if valid_id is not None and int(valid_id) == int(TraderroleSerializer.data["Traderrole_id"]):
+            res = updatedetails(TraderroleSerializer.data)
 
         if res is True:
             data = {"res": "True"}
@@ -78,14 +78,14 @@ class ProductUpdate(generics.CreateAPIView):
             return JsonResponse((data), status=status.HTTP_400_BAD_REQUEST)
 
 
-class DeleteProduct(generics.CreateAPIView):
-    serializer_class = Product_masterSerialize
+class TraderroleDelete(generics.CreateAPIView):
+    serializer_class = TraderroleSerialize
 
     def delete(self, request):
         #product_data = JSONParser().parse(request)
         #Product_masterSerializer = Product_masterSerialize(data=product_data)
 
-        uid = request.query_params.get('Product_id', None)
+        uid = request.query_params.get('Traderrole_id', None)
 
         res = False
         res = deletedetails(uid)

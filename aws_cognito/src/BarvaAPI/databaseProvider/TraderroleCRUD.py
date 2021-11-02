@@ -1,18 +1,22 @@
 from django.db import connection
 from BarvaAPI.view import *
-from BarvaAPI.Models.Lotunit_masterModels import Lotunit_masterModel
+from BarvaAPI.Models.TraderroleModels import TraderroleModel
 
 
-def get_all_Lot_details():
+def get_all_traderrole_details():
     cursor = connection.cursor()
     product_List = []
     try:
-        cursor.execute('SELECT "Lotunit_id", "Lotunit_name"	FROM public."Lotunit_master"')
-
-        result_set = cursor.fetchall()
-        for row in result_set:
-            products = Lotunit_masterModel(row[0], row[1])
-            product_List.append(products)
+        cursor.execute('SELECT "Traderrole_id", "Traderrole_name" FROM public."Trade_role"')
+        result = cursor.fetchall()
+        
+        for row in result:
+            print(row[0])
+            print(row[1])
+            traderrole = TraderroleModel(row[0],row[1])
+            print(traderrole)
+            product_List.append(tr)
+            
 
     finally:
         cursor.close()
@@ -23,8 +27,8 @@ def updatedetails(data):
     cursor = connection.cursor()
 
     try:
-        updatedata = [data["Lotunit_name"],data["Lotunit_id"]]
-        cursor.execute('UPDATE public."Lotunit_master" SET  "Lotunit_name"=%s	WHERE "Lotunit_id"=%s', updatedata)
+        updatedata = [data["Traderrole_name"],data["Traderrole_id"]]
+        cursor.execute('UPDATE public."Trade_role"	SET "Traderrole_name"=%s	WHERE "Traderrole_id"=%s', updatedata)
 
         connection.commit()
         
@@ -36,12 +40,12 @@ def updatedetails(data):
     return False
 
 
-def insertdetails(trad_data):
+def insertdetails(data):
     cursor = connection.cursor()
     
     try:
-        updatedata = [trad_data["Lotunit_name"]]
-        cursor.execute('INSERT INTO public."Lotunit_master"( "Lotunit_name") VALUES (%s)', updatedata)
+        updatedata = [data["Traderrole_name"]]
+        cursor.execute('INSERT INTO public."Trade_role" ("Traderrole_name") VALUES (%s)', updatedata)
 
         connection.commit()
         count = cursor.rowcount
@@ -58,7 +62,7 @@ def deletedetails(P_id):
 
     try:
 
-        cursor.execute('DELETE FROM public."Lotunit_master" WHERE "Lotunit_id"=%s', [P_id])
+        cursor.execute('DELETE FROM public."Trade_role" WHERE "Traderrole_id"=%s', [P_id])
 
         connection.commit()
         count = cursor.rowcount
@@ -72,7 +76,7 @@ def deletedetails(P_id):
 def Validate_product_details(uuid):
     cursor = connection.cursor()
     try:
-        cursor.execute('SELECT "Lotunit_id" FROM public."Lotunit_master" WHERE "Lotunit_id"=%s  ', [uuid])
+        cursor.execute('SELECT "Traderrole_id" FROM public."Trade_role" WHERE "Traderrole_id"=%s  ', [uuid])
 
         result_set = cursor.fetchall()
         for row in result_set:

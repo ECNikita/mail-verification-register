@@ -6,10 +6,10 @@ class Producer_masterModel(models.Model):
     Producer_name = models.CharField(max_length=100) 
     Producer_address = models.CharField(max_length=100) 
     Producer_mobileno = models.IntegerField()
-    Producer_adhaarno = models.IntegerField()
+    Producer_adhaarno = models.BigIntegerField(blank=True,null=True)
     Producer_email = models.CharField(max_length=100) 
     Producer_pancard = models.CharField(max_length=100) 
-    Producer_gstno = models.IntegerField()
+    Producer_gstno = models.BigIntegerField(blank=True,null=True)
     Producer_firmregistration = models.CharField(max_length=100) 
 
     def __init__(self,producer_id,name,address,mobileno,adhaarno,email,pancard,gstno,firmreg):

@@ -3,7 +3,7 @@ from BarvaAPI.view import *
 from BarvaAPI.Models.Producer_masterModels import Producer_masterModel
 
 
-def get_all_product_details():
+def get_all_producer_details():
     cursor = connection.cursor()
     product_List = []
     try:
@@ -11,7 +11,7 @@ def get_all_product_details():
 
         result_set = cursor.fetchall()
         for row in result_set:
-            products = Producer_masterModel(row[0], row[1], row[2], row[3],row[4],row[5],row[6],row[7])
+            products = Producer_masterModel(row[0], row[1], row[2], row[3],row[4],row[5],row[6],row[7],row[8])
             product_List.append(products)
 
     finally:
