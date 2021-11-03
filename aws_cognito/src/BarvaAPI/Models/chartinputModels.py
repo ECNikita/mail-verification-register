@@ -1,3 +1,4 @@
+from datetime import timezone
 from django.db import models
 
 
@@ -6,24 +7,21 @@ class ChartModel(models.Model):
     datefrom = models.DateTimeField()
     dateto = models.DateTimeField()
 
-    def __init__(self , pro_id,dfrom,dto):
+    def __init__(self, pro_id, dfrom, dto):
         self.Product_id = pro_id
-        self.datefrom =dfrom
+        self.datefrom = dfrom
         self.dateto = dto
 
+
 class ChartResponseModel(models.Model):
-    quantity =models.IntegerField()
-    datefrom = models.DateTimeField()
-
-    def __init__(self,pr,qn,df):
-        
-        self.quantity =qn
-        self.datefrom =df
-
-class ChartResponseModel1(models.Model):
+    quantity = models.IntegerField()
     price = models.IntegerField()
     datefrom = models.DateTimeField()
 
-    def __init__(self,pr,qn,df):
+    def __init__(self, qn, pr, df):
+        self.quantity = qn
+        self.datefrom = df
         self.price = pr
-        self.datefrom =df
+
+    def __str__(self):
+        return str(self.datefrom)

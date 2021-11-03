@@ -41,6 +41,6 @@ urlpatterns = [
     path('traderupdate',Trader_detailsUpdate.as_view()),
     path('traderdelete',Trader_detailsDelete.as_view()),
     
-    path('getchart',GETchart.as_view())
+    path('getchart',GETquanchart.as_view())
 
 ]

@@ -12,18 +12,10 @@ from BarvaAPI.view import *
 schema_view = get_schema_view(title='Users API', renderer_classes=[
                              OpenAPIRenderer, SwaggerUIRenderer])
 urlpatterns = [
-    path('openapi/', get_schema_view(
-        title="Barva",
-        description="API developers hpoing to use our service"
-    ), name='openapi-schema'),
-    path('docs/', TemplateView.as_view(
-        template_name='documentation.html',
-        extra_context={'schema_url': 'openapi-schema'}
-    ), name='swagger-ui'),
+    path('openapi/', get_schema_view(title="Barva Organic Commodities"), name='openapi-schema'),
+    path('docs/', TemplateView.as_view(template_name='documentation.html',extra_context={'schema_url': 'openapi-schema'}), name='swagger-ui'),
     path('admin/', admin.site.urls),
     path('users/', include('user_mgnts.urls')),
     path('',include('BarvaAPI.urls')),
-    path('chart/', TemplateView.as_view(
-        template_name='examplechart.html'
-    ))
+    path('chart/', TemplateView.as_view(template_name='examplechart.html' ))
 ]

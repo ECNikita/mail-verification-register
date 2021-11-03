@@ -94,14 +94,17 @@ class Product_pricebyproducerDelete(generics.CreateAPIView):
             return JsonResponse((data), status=status.HTTP_400_BAD_REQUEST)
 
 
-class GETchart(generics.CreateAPIView):
+class GETquanchart(generics.CreateAPIView):
     serializer_class = ChartSerialize
     def post(self, request):
         Product_data = JSONParser().parse(request)
         ChartSerializer = ChartSerialize(data=Product_data)
+        print(ChartSerializer)
         if ChartSerializer.is_valid():
-            res = get_all_chart_details(ChartSerializer.data)
-            serializer = ChartResponseSerialize(data=res ,many=True)
+            res = get_all_chart_quan_details(ChartSerializer.data)
+            serializer = ChartResponseSerialize(data=res,many=True)
+            #print("serila=",serializer)
             serializer.is_valid()
+            print(serializer.errors)
             return JsonResponse((serializer.data), safe=False)
 
