@@ -11,7 +11,7 @@ def get_all_product_price_details():
 
         result_set = cursor.fetchall()
         for row in result_set:
-            products = Product_pricebyproducerModel(row[0], row[1],row[2],row[3],row[4],row[5],row[6])
+            products = Product_pricebyproducerModel(row[0], row[1],row[2],row[3],row[4],row[5],row[6],row[7])
             product_List.append(products)
 
     finally:

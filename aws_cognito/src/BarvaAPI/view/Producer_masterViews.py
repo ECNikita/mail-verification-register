@@ -1,22 +1,13 @@
-from rest_framework_swagger import renderers
 from rest_framework.parsers import JSONParser
 from rest_framework import generics
 from django.shortcuts import render, redirect
-from BarvaAPI.Models.Producer_masterModels import Producer_masterModel
-from rest_framework.response import Response
 from BarvaAPI.serializer.Producer_masterSerialize import Producer_masterSerialize
 from rest_framework import status
 from BarvaAPI.databaseProvider.Producer_masterCRUD import *
 from django.http import JsonResponse
-import json
-from rest_framework import status, permissions
+
 
 class ProducerGET(generics.CreateAPIView):
-    # permission_classes = (permissions.IsAuthenticated,)
-    # renderer_classes = [
-    #     renderers.OpenAPIRenderer,
-    #     renderers.SwaggerUIRenderer
-    # ]
     serializer_class = Producer_masterSerialize
     def get(self, request):
         prod_data = get_all_producer_details()
@@ -25,11 +16,6 @@ class ProducerGET(generics.CreateAPIView):
         return JsonResponse(Producer_masterSerializer.data, safe=False)
 
 class ProducerInsert(generics.CreateAPIView):
-    # permission_classes = (permissions.IsAuthenticated,)
-    # renderer_classes = [
-    #     renderers.OpenAPIRenderer,
-    #     renderers.SwaggerUIRenderer
-    # ]
     serializer_class = Producer_masterSerialize
     def post(self, request):
         producer_data = JSONParser().parse(request)
@@ -48,11 +34,6 @@ class ProducerInsert(generics.CreateAPIView):
             return JsonResponse((data), status=status.HTTP_400_BAD_REQUEST)
 
 class ProducerUpdate(generics.CreateAPIView):
-    # permission_classes = (permissions.IsAuthenticated,)
-    # renderer_classes = [
-    #     renderers.OpenAPIRenderer,
-    #     renderers.SwaggerUIRenderer
-    # ]
     serializer_class = Producer_masterSerialize
     def put(self, request):
         product_data = JSONParser().parse(request)
@@ -76,9 +57,6 @@ class ProducerUpdate(generics.CreateAPIView):
 class DeleteProducer(generics.CreateAPIView):
     serializer_class = Producer_masterSerialize
     def delete(self, request):
-        #product_data = JSONParser().parse(request)
-        #Product_masterSerializer = Product_masterSerialize(data=product_data)
-        
         uid = request.query_params.get('Producer_id', None)
         
         res=False

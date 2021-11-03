@@ -1,22 +1,14 @@
-from rest_framework_swagger import renderers
 from rest_framework.parsers import JSONParser
 from rest_framework import generics
 from django.shortcuts import render, redirect
-from BarvaAPI.Models.Trader_detailsModels import Trader_detailsModel
 from rest_framework.response import Response
 from BarvaAPI.serializer.Trader_detailsSerialize import Trader_detailsSerialize
 from rest_framework import status
 from BarvaAPI.databaseProvider.Trader_detailsCRUD import *
 from django.http import JsonResponse
-import json
-from rest_framework import status, permissions
+
 
 class Trader_detailsGET(generics.CreateAPIView):
-    # permission_classes = (permissions.IsAuthenticated,)
-    # renderer_classes = [
-    #     renderers.OpenAPIRenderer,
-    #     renderers.SwaggerUIRenderer
-    # ]
     serializer_class = Trader_detailsSerialize
     def get(self, request):
         trader_data = get_all_trader_details()
@@ -25,11 +17,6 @@ class Trader_detailsGET(generics.CreateAPIView):
         return JsonResponse(Trader_detailsSerializer.data, safe=False)
 
 class Trader_detailsInsert(generics.CreateAPIView):
-    # permission_classes = (permissions.IsAuthenticated,)
-    # renderer_classes = [
-    #     renderers.OpenAPIRenderer,
-    #     renderers.SwaggerUIRenderer
-    # ]
     serializer_class = Trader_detailsSerialize
     def post(self, request):
         Lot_data = JSONParser().parse(request)
@@ -46,11 +33,6 @@ class Trader_detailsInsert(generics.CreateAPIView):
             return JsonResponse((data), status=status.HTTP_400_BAD_REQUEST)
 
 class Trader_detailsUpdate(generics.CreateAPIView):
-    # permission_classes = (permissions.IsAuthenticated,)
-    # renderer_classes = [
-    #     renderers.OpenAPIRenderer,
-    #     renderers.SwaggerUIRenderer
-    # ]
     serializer_class = Trader_detailsSerialize
     def put(self, request):
         lot_data = JSONParser().parse(request)
@@ -74,11 +56,7 @@ class Trader_detailsUpdate(generics.CreateAPIView):
 class Trader_detailsDelete(generics.CreateAPIView):
     serializer_class = Trader_detailsSerialize
     def delete(self, request):
-        #product_data = JSONParser().parse(request)
-        #Product_masterSerializer = Product_masterSerialize(data=product_data)
-        
         uid = request.query_params.get('Trader_id', None)
-        
         res=False
         res = deletedetails(uid)
 

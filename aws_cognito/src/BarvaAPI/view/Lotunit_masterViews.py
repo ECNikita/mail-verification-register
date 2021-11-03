@@ -1,22 +1,13 @@
-from rest_framework_swagger import renderers
 from rest_framework.parsers import JSONParser
 from rest_framework import generics
 from django.shortcuts import render, redirect
-from BarvaAPI.Models.Lotunit_masterModels import Lotunit_masterModel
-from rest_framework.response import Response
 from BarvaAPI.serializer.Lotunit_masterSerialize import Lotunit_masterSerialize
 from rest_framework import status
 from BarvaAPI.databaseProvider.Lotunit_masterCRUD import *
 from django.http import JsonResponse
-import json
-from rest_framework import status, permissions
+
 
 class LotGET(generics.CreateAPIView):
-    # permission_classes = (permissions.IsAuthenticated,)
-    # renderer_classes = [
-    #     renderers.OpenAPIRenderer,
-    #     renderers.SwaggerUIRenderer
-    # ]
     serializer_class = Lotunit_masterSerialize
     def get(self, request):
         prod_data = get_all_Lot_details()
@@ -25,11 +16,6 @@ class LotGET(generics.CreateAPIView):
         return JsonResponse(Lotunit_masterSerializer.data, safe=False)
 
 class LotInsert(generics.CreateAPIView):
-    # permission_classes = (permissions.IsAuthenticated,)
-    # renderer_classes = [
-    #     renderers.OpenAPIRenderer,
-    #     renderers.SwaggerUIRenderer
-    # ]
     serializer_class = Lotunit_masterSerialize
     def post(self, request):
         Lot_data = JSONParser().parse(request)
@@ -46,11 +32,6 @@ class LotInsert(generics.CreateAPIView):
             return JsonResponse((data), status=status.HTTP_400_BAD_REQUEST)
 
 class LotUpdate(generics.CreateAPIView):
-    # permission_classes = (permissions.IsAuthenticated,)
-    # renderer_classes = [
-    #     renderers.OpenAPIRenderer,
-    #     renderers.SwaggerUIRenderer
-    # ]
     serializer_class = Lotunit_masterSerialize
     def put(self, request):
         lot_data = JSONParser().parse(request)
@@ -74,9 +55,6 @@ class LotUpdate(generics.CreateAPIView):
 class LotDelete(generics.CreateAPIView):
     serializer_class = Lotunit_masterSerialize
     def delete(self, request):
-        #product_data = JSONParser().parse(request)
-        #Product_masterSerializer = Product_masterSerialize(data=product_data)
-        
         uid = request.query_params.get('Lotunit_id', None)
         
         res=False
