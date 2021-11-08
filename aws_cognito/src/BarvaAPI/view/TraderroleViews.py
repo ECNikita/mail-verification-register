@@ -7,21 +7,17 @@ from rest_framework import status
 from BarvaAPI.databaseProvider.TraderroleCRUD import *
 from django.http import JsonResponse
 
-
 class TraderroleGET(generics.CreateAPIView):
     serializer_class = TraderroleSerialize
-
     def get(self, request):
         traderrole_data = get_all_traderrole_details()
         TraderroleSerializer = TraderroleSerialize(data=traderrole_data, many=True)
-        print(TraderroleSerializer)
         TraderroleSerializer.is_valid()
         return JsonResponse(TraderroleSerializer.data, safe=False)
 
 
 class TraderroleInsert(generics.CreateAPIView):
     serializer_class = TraderroleSerialize
-
     def post(self, request):
         trader_data = JSONParser().parse(request)
         TraderroleSerializer = TraderroleSerialize(data=trader_data)
@@ -39,7 +35,6 @@ class TraderroleInsert(generics.CreateAPIView):
 
 class TraderroleUpdate(generics.CreateAPIView):
     serializer_class = TraderroleSerialize
-
     def put(self, request):
         trader_data = JSONParser().parse(request)
         TraderroleSerializer = TraderroleSerialize(data=trader_data)
@@ -62,7 +57,6 @@ class TraderroleUpdate(generics.CreateAPIView):
 
 class TraderroleDelete(generics.CreateAPIView):
     serializer_class = TraderroleSerialize
-
     def delete(self, request):
         uid = request.query_params.get('Traderrole_id', None)
 

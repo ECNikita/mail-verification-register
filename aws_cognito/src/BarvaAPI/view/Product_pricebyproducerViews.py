@@ -2,6 +2,7 @@ from rest_framework.parsers import JSONParser
 from rest_framework import generics
 from django.shortcuts import render, redirect
 from BarvaAPI.serializer.Product_pricebyproducerSerialize import Product_pricebyproducerSerialize
+from BarvaAPI.serializer.CustomerProducer_Bid_detailsSerialize import CustomerProducer_Bid_detailsSerialize
 from rest_framework import status
 from BarvaAPI.serializer.chartinputSerialize import *
 from BarvaAPI.databaseProvider.Product_pricebyproducerCRUD import *
@@ -76,9 +77,13 @@ class GETquanchart(generics.CreateAPIView):
     serializer_class = ChartSerialize
     def post(self, request):
         Product_data = JSONParser().parse(request)
+        print(Product_data)
         ChartSerializer = ChartSerialize(data=Product_data)
+        
         if ChartSerializer.is_valid():
             res = get_all_chart_quan_details(ChartSerializer.data)
             serializer = ChartResponseSerialize(data=res,many=True)
+            
             serializer.is_valid()
+            
             return JsonResponse((serializer.data), safe=False)

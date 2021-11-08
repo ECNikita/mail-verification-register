@@ -10,9 +10,9 @@
     <script>
       $(document).ready(function () {
           var req = {
-            "Product_id": 2,
-            "datefrom": "2020-10-29T12:41:01.657Z",
-            "dateto": "2022-10-29T12:41:01.657Z",
+            "Product_id": 3,
+            "datefrom": '2021-11-02 05:04:27',
+            "dateto": '2022-11-02 05:04:57',
           };
         $.post(
           "http://127.0.0.1:8000/getchart",
@@ -24,12 +24,14 @@
         );
       });
       function showchart(data){
-          var datearr=[],pricearr=[],quanarr=[];
+          var datearr=[],pricearr=[],quanarr=[],Customer_bidpricearr=[];
           for(var i =0;i<data.length;i++)
           {
               datearr.push(data[i].datefrom);
               pricearr.push(data[i].price);
-              quanarr.push(data[i].quantity)
+              quanarr.push(data[i].quantity);
+              Customer_bidpricearr.push(data[i].Customer_bidprice);
+              
           }
 
 
@@ -38,18 +40,20 @@
         type: "line",
         data: {
           labels: datearr,
-          datasets: [
-                      {
-              data:quanarr,
+          datasets: [{
+              data:pricearr,
               borderColor: "green",
               fill: false,
-            },
-          ],
         },
-        options: {
+        {
+              data:Customer_bidpricearr,
+              borderColor: "blue",
+              fill: false,
+        }]
+            },
           legend: { display: false },
         },
-      });
+      );
 
       new Chart("barChart", {
         type: "bar",
@@ -57,7 +61,7 @@
           labels: datearr,
           datasets: [
             {
-              data: pricearr,
+              data: quanarr,
               borderColor: "red",
               backgroundColor: "red",
               fill: true,

@@ -6,6 +6,8 @@ from BarvaAPI.view.Lotunit_masterViews import LotInsert,LotUpdate,LotDelete,LotG
 from BarvaAPI.view.Product_pricebyproducerViews import *
 from BarvaAPI.view.TraderroleViews import *
 from BarvaAPI.view.Trader_detailsViews import *
+from BarvaAPI.view.Bid_masterViews import *
+from BarvaAPI.view.CustomerProducer_Bid_detailsViews import *
 
 urlpatterns = [
     path('registerbyid',RegisterUserByID.as_view()),
@@ -40,7 +42,17 @@ urlpatterns = [
     path('traderinsert',Trader_detailsInsert.as_view()),
     path('traderupdate',Trader_detailsUpdate.as_view()),
     path('traderdelete',Trader_detailsDelete.as_view()),
+
+    path('bidget',BidGet.as_view()),
+    path('bidinsert',BidInsert.as_view()),
+    path('bidupdate',BidUpdate.as_view()),
+    path('biddelete',BidDelete.as_view()),
+
+    path('custbidget',CustBidGet.as_view()),
+    path('custbidinsert',CustBidInsert.as_view()),
+    path('custbidupdate',CustBidUpdate.as_view()),
+    path('custbiddelete',CustBidDelete.as_view()),
+    
     
     path('getchart',GETquanchart.as_view())
-
 ]

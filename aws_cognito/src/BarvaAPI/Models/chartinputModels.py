@@ -16,12 +16,14 @@ class ChartModel(models.Model):
 class ChartResponseModel(models.Model):
     quantity = models.IntegerField()
     price = models.IntegerField()
+    Customer_bidprice = models.IntegerField()
     datefrom = models.DateTimeField()
 
-    def __init__(self, qn, pr, df):
+    def __init__(self, qn, pr, df,cb):
         self.quantity = qn
         self.datefrom = df
         self.price = pr
+        self.Customer_bidprice = cb
 
     def __str__(self):
         return str(self.datefrom)
