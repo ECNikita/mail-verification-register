@@ -8,7 +8,6 @@ from BarvaAPI.serializer.registerSerialize import RegistrateSerialize
 from rest_framework import status
 from BarvaAPI.databaseProvider.registerCRUD import *
 from django.http import JsonResponse
-import json
 from rest_framework import status, permissions
 
 
@@ -26,7 +25,7 @@ from rest_framework import status, permissions
 #             RegistrateSerializer = RegistrateSerialize(registers, many=True)
 #             return JsonResponse(RegistrateSerializer.data, safe=False)
 
-class RegisterUserByID(generics.CreateAPIView):
+class RegisterInsert(generics.CreateAPIView):
     permission_classes = (permissions.IsAuthenticated,)
     renderer_classes = [
         renderers.OpenAPIRenderer,
@@ -38,22 +37,44 @@ class RegisterUserByID(generics.CreateAPIView):
         user_id = request.user.UserId
         user_data = JSONParser().parse(request)
         RegistrateSerializer = RegistrateSerialize(data=user_data)
-       
+        res = False
         if RegistrateSerializer.is_valid():
-            valid_user = Validate_user_details(user_id)
-            res = False
-            if valid_user is not None and valid_user == user_id:
-                res = updatedetails(RegistrateSerializer.data, user_id)
-            else:
-                res = insertdetails(RegistrateSerializer.data, user_id)
+            res = insertdetails(RegistrateSerializer.data, user_id)
 
-            if res is True:
-                data = {"res": "True"}
-                return JsonResponse((data), safe=False)
+        if res is True:
+            data = {"res":"True"}
+            return JsonResponse((data), safe=False)
+        else:
+            data = {"res":"False"}
+            return JsonResponse((data), status=status.HTTP_400_BAD_REQUEST)
 
-        data = {"res": "False"}
-        return JsonResponse((data), status=status.HTTP_400_BAD_REQUEST)
 
+class RegisterUpdate(generics.CreateAPIView):
+    permission_classes = (permissions.IsAuthenticated,)
+    renderer_classes = [
+        renderers.OpenAPIRenderer,
+        renderers.SwaggerUIRenderer
+    ]
+    serializer_class = RegistrateSerialize
+    
+    def put(self, request):
+        user_id = request.user.UserId
+        lot_data = JSONParser().parse(request)
+        RegistrateSerializer = RegistrateSerialize(data=lot_data)
+        valid_id = None
+        if RegistrateSerializer.is_valid() and "Register_id" in RegistrateSerializer.data:
+            valid_id = Validate_user_details(RegistrateSerializer.data["Register_id"])
+        res = False
+        
+        if valid_id is not None and int(valid_id)==int(RegistrateSerializer.data["Register_id"]):
+            res= updatedetails(RegistrateSerializer.data)
+            
+        if res is True:
+            data= {"res":"True"}
+            return JsonResponse((data), safe=False)
+        else :
+            data= {"res":"False"}
+            return JsonResponse((data), status=status.HTTP_400_BAD_REQUEST)
 
 class DeleteRegisterUserByID(generics.CreateAPIView):
     permission_classes = (permissions.IsAuthenticated,)
@@ -63,9 +84,9 @@ class DeleteRegisterUserByID(generics.CreateAPIView):
     ]
     def delete(self, request):
         user_id = request.user.UserId
+        uid = request.query_params.get('Register_id', None)
         res = False
-        print("before server")
-        res = deletedetails(user_id)
+        res = deletedetails(uid)
 
         if res is True:
             data = {"res":"True"}

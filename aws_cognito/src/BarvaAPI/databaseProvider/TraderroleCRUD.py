@@ -41,8 +41,7 @@ def insertdetails(data):
 
     try:
         updatedata = [data["Traderrole_name"]]
-        cursor.execute(
-            'INSERT INTO public."Trade_role" ("Traderrole_name") VALUES (%s)', updatedata)
+        cursor.execute('INSERT INTO public."Trade_role" ("Traderrole_name") VALUES (%s)', updatedata)
 
         connection.commit()
         count = cursor.rowcount

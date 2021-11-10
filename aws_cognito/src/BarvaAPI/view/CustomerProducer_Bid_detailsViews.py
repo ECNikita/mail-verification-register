@@ -37,8 +37,6 @@ class CustBidUpdate(generics.CreateAPIView):
     def put(self, request):
         Bid_data = JSONParser().parse(request)
         CustomerProducer_Bid_detailsSerializer = CustomerProducer_Bid_detailsSerialize(data=Bid_data)
-        print(CustomerProducer_Bid_detailsSerializer)
-        print(CustomerProducer_Bid_detailsSerializer.is_valid)
         if CustomerProducer_Bid_detailsSerializer.is_valid() and "Request_id" in CustomerProducer_Bid_detailsSerializer.data:
             valid_id = Validate_product_details(CustomerProducer_Bid_detailsSerializer.data["Request_id"])
         res = False

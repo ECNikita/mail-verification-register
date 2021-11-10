@@ -1,17 +1,17 @@
 from django.db import connection
 from BarvaAPI.view import *
-from BarvaAPI.Models.Product_masterModels import Product_masterModel
+from BarvaAPI.Models.Order_ticketdetailsModels import Order_ticketdetailsModel
 
 
-def get_all_product_details():
+def get_all_Order_ticket_details():
     cursor = connection.cursor()
     product_List = []
     try:
-        cursor.execute('SELECT "Product_id", "Product_name", "Product_size", "Product_season", "Product_fractionalreserve"	FROM public."Product_master"')
+        cursor.execute('SELECT "Ticket_id", "Order_id", "Customerticket_no", "Producerticket_no", "Notification" FROM public."Order_ticketdetails"')
 
         result_set = cursor.fetchall()
         for row in result_set:
-            products = Product_masterModel(row[0], row[1], row[2], row[3],row[4])
+            products = Order_ticketdetailsModel(row[0], row[1],row[2],row[3],row[4])
             product_List.append(products)
 
     finally:
@@ -23,8 +23,8 @@ def updatedetails(data):
     cursor = connection.cursor()
 
     try:
-        updatedata = [data["Product_name"], data["Product_size"],data["Product_season"],data["Product_fractionalreserve"], data["Product_id"]]
-        cursor.execute('UPDATE public."Product_master"	SET "Product_name"=%s, "Product_size"=%s, "Product_season"=%s ,"Product_fractionalreserve"=%s WHERE "Product_id"=%s', updatedata)
+        updatedata = [data["Order_id"],data["Customerticket_no"],data["Producerticket_no"],data["Notification"],data["Ticket_id"]]
+        cursor.execute('UPDATE public."Order_ticketdetails" SET "Order_id"=%s, "Customerticket_no"=%s, "Producerticket_no"=%s, "Notification"=%s WHERE "Ticket_id"=%s', updatedata)
 
         connection.commit()
         
@@ -38,13 +38,12 @@ def updatedetails(data):
 
 def insertdetails(data):
     cursor = connection.cursor()
-
+    
     try:
-        updatedata = [ data["Product_name"],data["Product_size"], data["Product_season"],data["Product_fractionalreserve"]]
-        cursor.execute('INSERT INTO public."Product_master"( "Product_name", "Product_size",  "Product_season", "Product_fractionalreserve") VALUES (%s, %s, %s,%s);', updatedata)
+        updatedata = [data["Order_id"],data["Customerticket_no"],data["Producerticket_no"],data["Notification"]]
+        cursor.execute('INSERT INTO public."Order_ticketdetails"("Order_id", "Customerticket_no", "Producerticket_no", "Notification") VALUES (%s,%s,%s,%s)', updatedata)
 
         connection.commit()
-        
         count = cursor.rowcount
         
         if count > 0:
@@ -59,7 +58,7 @@ def deletedetails(P_id):
 
     try:
 
-        cursor.execute('DELETE FROM public."Product_master" WHERE "Product_id"=%s', [P_id])
+        cursor.execute('DELETE FROM public."Order_ticketdetails" WHERE "Ticket_id"=%s', [P_id])
 
         connection.commit()
         count = cursor.rowcount
@@ -73,8 +72,7 @@ def deletedetails(P_id):
 def Validate_product_details(uuid):
     cursor = connection.cursor()
     try:
-        cursor.execute(
-            'SELECT "Product_id" FROM public."Product_master" WHERE "Product_id"=%s  ', [uuid])
+        cursor.execute('SELECT "Ticket_id" FROM public."Order_ticketdetails" WHERE "Ticket_id"=%s  ', [uuid])
 
         result_set = cursor.fetchall()
         for row in result_set:

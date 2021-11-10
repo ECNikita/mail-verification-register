@@ -77,7 +77,7 @@ class GETquanchart(generics.CreateAPIView):
     serializer_class = ChartSerialize
     def post(self, request):
         Product_data = JSONParser().parse(request)
-        print(Product_data)
+        
         ChartSerializer = ChartSerialize(data=Product_data)
         
         if ChartSerializer.is_valid():

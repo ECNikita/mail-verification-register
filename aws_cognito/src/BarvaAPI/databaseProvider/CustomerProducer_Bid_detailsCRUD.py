@@ -27,7 +27,7 @@ def updatedetails(data):
         cursor.execute('UPDATE public."CustomerProducer_Bid_details" SET "Producer_id"=%s, "Register_id"=%s, "Product_id"=%s, "Producerproductprice"=%s, "Customer_bidprice"=%s, "DateTime"=%s, "Bidtype_id"=%s, "Quantity"=%s, "Trader_notification"=%s, "Trader_approval"=%s, "Approval_comments"=%s WHERE "Request_id"=%s', updatedata)
 
         connection.commit()
-        print("After commit")
+        
         count = cursor.rowcount
         if count > 0:
             return True
