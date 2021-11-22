@@ -13,6 +13,8 @@ from BarvaAPI.view.Order_detailsViews import *
 from BarvaAPI.view.Order_ticketdetailsViews import *
 from BarvaAPI.view.TransportViews import *
 from BarvaAPI.view.WarehouseViews import *
+from BarvaAPI.view.BiddingforProductView import *
+from BarvaAPI.view.Producer_calculationView import ProducerCalGet
 
 urlpatterns = [
     path('registerinsert',RegisterInsert.as_view()),
@@ -84,6 +86,9 @@ urlpatterns = [
     path('warehouseinsert',WarehouseInsert.as_view()),
     path('warehouseupdate',WarehouseUpdate.as_view()),
     path('warehousedelete',WarehouseDelete.as_view()),
+    
+    path('bid_calc',BiddingCalc.as_view()),
+    path('producerCalget',ProducerCalGet.as_view()),
      
     path('getchart',GETquanchart.as_view())
 ]

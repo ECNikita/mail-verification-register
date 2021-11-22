@@ -7,7 +7,7 @@ class CustomerProducer_Bid_detailsModel(models.Model):
     Register_id  = models.BigIntegerField(blank=True ,null=True)
     Product_id = models.BigIntegerField(blank=True ,null=True)
     Producerproductprice = models.IntegerField()
-    Customer_bidprice = models.DecimalField(max_digits=25, decimal_places=6)
+    Customer_bidprice = models.IntegerField()
     DateTime = models.DateTimeField()
     Bidtype_id =  models.BigIntegerField(blank=True ,null=True)
     Quantity = models.IntegerField()

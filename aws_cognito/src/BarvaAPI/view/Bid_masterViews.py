@@ -66,3 +66,4 @@ class BidDelete(generics.CreateAPIView):
         else :
             data= {"res":"False"}
             return JsonResponse((data), status=status.HTTP_400_BAD_REQUEST)
+        
